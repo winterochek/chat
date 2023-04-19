@@ -17,7 +17,7 @@ import { ChatContext } from '../../context/ChatContext';
 
 export const SearchComponent = () => {
    const [username, setUsername] = useState('');
-   const [user, setUser] = useState<DocumentData | null>(null);
+   const [user, setUser] = useState<any | null>(null);
    const [error, setError] = useState(false);
 
    const { currentUser } = useContext(AuthContext);
@@ -70,14 +70,10 @@ export const SearchComponent = () => {
                [combinedId + '.date']: serverTimestamp(),
             });
          }
-         dispatch({ type: 'CHANGE_USER', payload: user });
-      } catch (e) {
-         setError(true);
-      } finally {
-         setUser(null);
-         setUsername('');
-   
-      }
+         // dispatch({ type: 'CHANGE_USER', payload: user });
+      } catch (e) {}
+      setUser(null);
+      setUsername('');
    };
    return (
       <div className='search'>

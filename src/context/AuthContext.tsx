@@ -11,13 +11,12 @@ export const AuthContextProvider: FC<any> = ({ children }) => {
    const [currentUser, setCurrentUser] = useState<any | null>(null);
 
    useEffect(() => {
-      const unsub = onAuthStateChanged(auth, (user) => {
-         console.log(user);
+      const unsubscribe = onAuthStateChanged(auth, (user) => {
          setCurrentUser(user);
       });
 
       return () => {
-         unsub();
+         unsubscribe();
       };
    }, []);
 

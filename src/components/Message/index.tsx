@@ -1,21 +1,30 @@
-import React from 'react';
+import { useContext } from 'react';
+import { AuthContext } from '../../context/AuthContext';
+import { ChatContext } from '../../context/ChatContext';
 
-export const MessageComponent = () => {
+export const MessageComponent = ({ message }: any) => {
+   const { currentUser } = useContext(AuthContext);
+   const { data } = useContext(ChatContext);
    return (
-      <div className='message owner'>
+      <div
+         className={`message ${
+            message.senderId === currentUser.uid && 'owner'
+         }`}
+      >
          <div className='messageInfo'>
             <img
-               src='https://variety.com/wp-content/uploads/2022/08/Jonah-Hill.jpg?w=681&h=383&crop=1'
+               src={
+                  message.senderId === currentUser.uid
+                     ? currentUser.photoURL
+                     : data.user.photoURL
+               }
                alt=''
             />
             <span>just now</span>
          </div>
          <div className='messageContent'>
-            <p>Hello</p>
-            <img
-               src='https://variety.com/wp-content/uploads/2022/08/Jonah-Hill.jpg?w=681&h=383&crop=1'
-               alt=''
-            />
+            <p>{message.text}</p>
+            {message.image && <img src={message.image} alt='' />}
          </div>
       </div>
    );

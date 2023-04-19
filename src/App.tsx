@@ -13,11 +13,11 @@ function App() {
 
    return (
       <div className='App'>
-         <ChatContextProvider>
-            <AuthContextProvider>
+         <AuthContextProvider>
+            <ChatContextProvider>
                <Router />
-            </AuthContextProvider>
-         </ChatContextProvider>
+            </ChatContextProvider>
+         </AuthContextProvider>
       </div>
    );
 }
