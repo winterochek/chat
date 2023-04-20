@@ -24,9 +24,7 @@ export const InputComponent = () => {
    const handleSend = async () => {
       if (image) {
          const storageRef = ref(storage, uuid());
-
          const uploadTask = uploadBytesResumable(storageRef, image);
-
          uploadTask.on(
             'state_changed',
             () => {},
@@ -59,14 +57,12 @@ export const InputComponent = () => {
             }),
          });
       }
-
       await updateDoc(doc(db, 'userChats', currentUser.uid), {
          [data.chatId + '.lastMessage']: {
             text,
          },
          [data.chatId + '.date']: serverTimestamp(),
       });
-
       await updateDoc(doc(db, 'userChats', data.user.uid), {
          [data.chatId + '.lastMessage']: {
             text,
@@ -88,7 +84,6 @@ export const InputComponent = () => {
                   onChange={(event: any) => setText(event.target.value)}
                />
                <div className='send'>
-                  <img src={Attach} alt='' />
                   <input
                      type='file'
                      style={{ display: 'none' }}
@@ -98,7 +93,20 @@ export const InputComponent = () => {
                   <label htmlFor='inputFile'>
                      <img src={Img} alt='' />
                   </label>
-                  <button onClick={handleSend}>Send</button>
+                  {image && (
+                     <img
+                        src={Attach}
+                        alt='attachment'
+                        onClick={(event: any) => setImage(null)}
+                     />
+                  )}
+                  <button 
+                  onClick={handleSend} 
+                  disabled={!image && !text}
+                  className={(!image && !text) ? 'disabled' : ''}
+                  >
+                     Send
+                  </button>
                </div>
             </>
          )}

@@ -1,12 +1,25 @@
-import { useContext } from 'react';
+import { useContext, useEffect, useRef } from 'react';
 import { AuthContext } from '../../context/AuthContext';
 import { ChatContext } from '../../context/ChatContext';
+import { useDate } from '../../utils';
 
 export const MessageComponent = ({ message }: any) => {
    const { currentUser } = useContext(AuthContext);
    const { data } = useContext(ChatContext);
+   const date = useDate(message.date);
+   const ref = useRef<any>(null);
+
+   useEffect(() => {
+      ref.current.scrollIntoView({
+         behavior: 'smooth',
+         block: 'end',
+         inline: 'nearest',
+      });
+   }, [message]);
+
    return (
       <div
+         ref={ref}
          className={`message ${
             message.senderId === currentUser.uid && 'owner'
          }`}
@@ -20,10 +33,10 @@ export const MessageComponent = ({ message }: any) => {
                }
                alt=''
             />
-            <span>just now</span>
+            <span>{date}</span>
          </div>
          <div className='messageContent'>
-            <p>{message.text}</p>
+            {message.text && <p>{message.text}</p>}
             {message.image && <img src={message.image} alt='' />}
          </div>
       </div>

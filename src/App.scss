@@ -91,8 +91,8 @@
       height: 80%;
       display: flex;
       @include laptop {
-        width: 90%;
-     }
+         width: 90%;
+      }
       .sidebar {
          flex: 1;
          background-color: #3e3c61;
@@ -107,14 +107,23 @@
             justify-content: space-between;
             color: #ddddf7;
             .logo {
+               font-size: 20px;
+               line-height: 1;
                font-weight: bold;
                @include tablet {
-                display: none;
-             }
+                  display: none;
+               }
             }
             .user {
                display: flex;
+               align-items: center;
                gap: 10px;
+               span {
+                  vertical-align: middle;
+                  color: #ddddf7;
+                  font-size: 18px;
+                  line-height: 1;
+               }
                img {
                   background-color: #ddddf7;
                   height: 24px;
@@ -125,16 +134,21 @@
                button {
                   background-color: #5d5b8d;
                   color: #ddddf7;
-                  font-size: 10px;
+                  font-size: 16px;
                   border: none;
                   border-radius: 4px;
                   padding: 4px;
                   cursor: pointer;
+                  position: relative;
+                  transition: transform 0.2s ease-in-out;
+                  &:hover {
+                     transform: translateY(2px);
+                  }
                   @include tablet {
-                    position: absolute;
-                    bottom: 10px;
-                    left: 10px;
-                 }
+                     position: absolute;
+                     bottom: 10px;
+                     left: 10px;
+                  }
                }
             }
          }
@@ -147,8 +161,10 @@
                   border: none;
                   color: white;
                   outline: none;
+                  font-size: 16px;
                   &::placeholder {
                      color: lightgray;
+                     font-size: 16px;
                   }
                }
             }
@@ -176,7 +192,7 @@
                   font-weight: 500;
                }
                p {
-                  font-size: 14px;
+                  font-size: 16px;
                   color: lightgray;
                }
             }
@@ -185,7 +201,9 @@
       .chat {
          flex: 2;
          height: 100%;
-
+         span {
+            font-size: 22px;
+         }
          .chatInfo {
             height: 50px;
             background-color: #5d5b8d;
@@ -194,16 +212,22 @@
             justify-content: space-between;
             padding: 10px;
             color: lightgray;
-         }
-         .chatIcons {
-            display: flex;
-            gap: 10px;
-            img {
-               height: 24px;
-               width: 24px;
-               cursor: pointer;
+            .chatIcons {
+               display: flex;
+               gap: 10px;
+               img {
+                  height: 24px;
+                  width: 24px;
+                  cursor: pointer;
+                  position: relative;
+                  transition: transform 0.2s ease-in-out;
+                  &:hover {
+                     transform: translateY(2px);
+                  }
+               }
             }
          }
+
          .messages {
             background-color: #ddddf7;
             padding: 10px;
@@ -216,6 +240,8 @@
                .messageInfo {
                   display: flex;
                   flex-direction: column;
+                  justify-content: flex-start;
+                  align-items: center;
                   color: gray;
                   font-weight: 300;
                   img {
@@ -223,6 +249,9 @@
                      height: 40px;
                      border-radius: 50%;
                      object-fit: cover;
+                  }
+                  span {
+                     font-size: 14px;
                   }
                }
                .messageContent {
@@ -237,7 +266,9 @@
                      max-width: max-content;
                   }
                   img {
-                     width: 50%;
+                     border-radius: 0px 10px 10px 10px;
+                     max-width: 50%;
+                     border: 1px solid white;
                   }
                }
                &.owner {
@@ -248,6 +279,11 @@
                         background-color: #8da4f1;
                         color: white;
                         border-radius: 10px 0px 10px 10px;
+                     }
+                     img {
+                        max-width: 50%;
+                        border-radius: 10px 0px 10px 10px;
+                        border: 3px solid #8da4f1;
                      }
                   }
                }
@@ -271,6 +307,7 @@
                }
             }
             .send {
+               position: relative;
                display: flex;
                align-items: center;
                gap: 10px;
@@ -284,6 +321,28 @@
                   color: white;
                   background-color: #8da4f1;
                   cursor: pointer;
+                  border-radius: 4px;
+                  position: relative;
+                  transition: transform 0.2s ease-in-out;
+                  &:hover {
+                     transform: translateY(2px);
+                  }
+               }
+               .disabled {
+                  cursor: auto;
+                  &:hover {
+                     transform: none;
+                  }
+               }
+               label {
+                  position: relative;
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  transition: transform 0.2s ease-in-out;
+                  &:hover {
+                     transform: translateY(2px);
+                  }
                }
             }
          }

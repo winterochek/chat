@@ -16,7 +16,7 @@ export const NavbarComponent = () => {
          <div className='user'>
             <img src={currentUser.photoURL} alt='' />
             <span>{currentUser.displayName}</span>
-            <button onClick={handleSignOutClick}>logout</button>
+            <button onClick={handleSignOutClick}>Logout</button>
          </div>
       </div>
    );
