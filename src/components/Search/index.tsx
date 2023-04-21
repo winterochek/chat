@@ -9,11 +9,11 @@ import {
    updateDoc,
    serverTimestamp,
    getDoc,
-   DocumentData,
 } from 'firebase/firestore';
 import { db } from '../../firebase';
 import { AuthContext } from '../../context/AuthContext';
-import { ChatContext } from '../../context/ChatContext';
+import { Input } from './Input';
+import { UserChat } from './UserChat';
 
 export const SearchComponent = () => {
    const [username, setUsername] = useState('');
@@ -21,7 +21,6 @@ export const SearchComponent = () => {
    const [error, setError] = useState(false);
 
    const { currentUser } = useContext(AuthContext);
-   const {dispatch} = useContext(ChatContext)
 
    const handleSearch = async () => {
       const q = query(
@@ -39,7 +38,7 @@ export const SearchComponent = () => {
       }
    };
 
-   const handleKey = (e: any) => {
+   const handleKey = async (e: any) => {
       e.code === 'Enter' && handleSearch();
    };
 
@@ -71,30 +70,16 @@ export const SearchComponent = () => {
             });
          }
          // dispatch({ type: 'CHANGE_USER', payload: user });
-      } catch (e) {}
+      } catch (e) {
+      }
       setUser(null);
       setUsername('');
    };
    return (
       <div className='search'>
-         <div className='searchForm'>
-            <input
-               type='text'
-               placeholder='Find a user'
-               value={username}
-               onChange={(e: any) => setUsername(e.target.value)}
-               onKeyDown={handleKey}
-            />
-         </div>
+         <Input userState={{ username, setUsername }} handleKey={handleKey} />
          {error && <span>User not found!</span>}
-         {user && (
-            <div className='userChat' onClick={handleSelect}>
-               <img src={user.photoURL} alt='' />
-               <div className='userChatInfo'>
-                  <span>{user.displayName}</span>
-               </div>
-            </div>
-         )}
+         {user && <UserChat user={user} handleSelect={handleSelect} />}
       </div>
    );
 };

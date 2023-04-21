@@ -1,37 +1,23 @@
-import { useContext, useEffect, useRef } from 'react';
+import { useContext } from 'react';
 import { AuthContext } from '../../context/AuthContext';
 import { ChatContext } from '../../context/ChatContext';
 import { useDate } from '../../utils';
+import User from '../../assets/user.png';
 
 export const MessageComponent = ({ message }: any) => {
    const { currentUser } = useContext(AuthContext);
    const { data } = useContext(ChatContext);
    const date = useDate(message.date);
-   const ref = useRef<any>(null);
 
-   useEffect(() => {
-      ref.current.scrollIntoView({
-         behavior: 'smooth',
-         block: 'end',
-         inline: 'nearest',
-      });
-   }, [message]);
+   const mine = message.senderId === currentUser.uid ? true : false;
 
    return (
-      <div
-         ref={ref}
-         className={`message ${
-            message.senderId === currentUser.uid && 'owner'
-         }`}
-      >
+      <div className={`message ${mine && 'owner'}`}>
          <div className='messageInfo'>
             <img
-               src={
-                  message.senderId === currentUser.uid
-                     ? currentUser.photoURL
-                     : data.user.photoURL
-               }
-               alt=''
+               src={mine ? currentUser.photoURL : data.user.photoURL}
+               alt={mine ? currentUser.displayName : data.user.displayName}
+               onError={(event: any) => (event.target.src = User)}
             />
             <span>{date}</span>
          </div>

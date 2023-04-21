@@ -28,6 +28,8 @@ export const LoginPage = () => {
       navigate('/');
    }, [currentUser]);
 
+   // if (!currentUser) return <div className='container'></div>;
+
    return (
       <div className='container'>
          <div className='formWrapper'>

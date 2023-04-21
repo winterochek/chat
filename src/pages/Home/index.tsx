@@ -1,15 +1,18 @@
-import React from 'react'
-import '../../App.scss'
-import { SidebarComponent } from '../../components/Sidebar'
-import { ChatComponent } from '../../components/Chat'
+import { useContext } from 'react';
+import { SidebarComponent } from '../../components/Sidebar';
+import { ChatComponent } from '../../components/Chat';
+import { SideContext } from '../../context/SideContext';
+import '../../App.scss';
 
 export const HomePage = () => {
-  return (
-    <div className='home'>
-      <div className='container'>
-        <SidebarComponent />
-        <ChatComponent />
+   const { visible } = useContext(SideContext);
+
+   return (
+      <div className='home'>
+         <div className='container'>
+            {visible && <SidebarComponent />}
+            <ChatComponent />
+         </div>
       </div>
-    </div>
-  )
-}
+   );
+};

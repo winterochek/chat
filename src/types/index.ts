@@ -1,5 +1,3 @@
-
-
 export interface MyContext {
-    currentUser: any | null;
- }
+   currentUser: any | null;
+}

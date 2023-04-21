@@ -5,13 +5,14 @@ import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
 import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
 import { doc, setDoc } from 'firebase/firestore';
 import Add from '../../assets/addAvatar.png';
+import Attach from '../../assets/attach.png';
 import { AuthContext } from '../../context/AuthContext';
 import '../../App.scss';
 
 export const RegisterPage = () => {
    const [error, setError] = useState(false);
    const navigate = useNavigate();
-
+   const [image, setImage] = useState<any>(null);
    const { currentUser } = useContext(AuthContext);
 
    const handleSubmit = async (e: any) => {
@@ -76,11 +77,25 @@ export const RegisterPage = () => {
                <input type='text' placeholder='name' />
                <input type='email' placeholder='email' />
                <input type='password' placeholder='password' />
-               <input style={{ display: 'none' }} type='file' id='inputFile' />
-               <label htmlFor='inputFile'>
-                  <img src={Add} alt='Add_avatar' />
-                  <span>Add an avatar</span>
-               </label>
+               <input
+                  style={{ display: 'none' }}
+                  type='file'
+                  onChange={(event: any) => setImage(event.target.files[0])}
+                  id='inputFile'
+               />
+               <div>
+                  {image && (
+                     <img
+                        src={Attach}
+                        alt='attachment'
+                        onClick={(event: any) => setImage(null)}
+                     />
+                  )}
+                  <label htmlFor='inputFile'>
+                     <img src={Add} alt='Add_avatar' />
+                     <span>Add an avatar</span>
+                  </label>
+               </div>
                <button>Sign up</button>
                {error && <span>Something went wrong</span>}
             </form>

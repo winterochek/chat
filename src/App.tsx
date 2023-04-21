@@ -3,6 +3,7 @@ import { Router } from './router';
 import { AuthContext, AuthContextProvider } from './context/AuthContext';
 import './App.scss';
 import { ChatContextProvider } from './context/ChatContext';
+import { SideContextProvider } from './context/SideContext';
 
 function App() {
    const { currentUser } = useContext(AuthContext);
@@ -13,11 +14,13 @@ function App() {
 
    return (
       <div className='App'>
-         <AuthContextProvider>
-            <ChatContextProvider>
-               <Router />
-            </ChatContextProvider>
-         </AuthContextProvider>
+         <SideContextProvider>
+            <AuthContextProvider>
+               <ChatContextProvider>
+                  <Router />
+               </ChatContextProvider>
+            </AuthContextProvider>
+         </SideContextProvider>
       </div>
    );
 }

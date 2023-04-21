@@ -3,18 +3,14 @@ import {
    createContext,
    useContext,
    useEffect,
+   useMemo,
    useReducer,
-   useState,
 } from 'react';
-import { auth } from '../firebase';
-import { onAuthStateChanged } from 'firebase/auth';
-import { MyContext } from '../types';
 import { AuthContext } from './AuthContext';
 
 export const ChatContext = createContext<any>({
    currentUser: null,
 });
-
 export const ChatContextProvider: FC<any> = ({ children }) => {
    const { currentUser } = useContext(AuthContext);
 

@@ -1,27 +1,31 @@
-import { FC, createContext, useEffect, useState } from 'react';
+import { FC, createContext, useMemo } from 'react';
 import { auth } from '../firebase';
-import { onAuthStateChanged } from 'firebase/auth';
 import { MyContext } from '../types';
+import { useAuthState } from 'react-firebase-hooks/auth';
 
 export const AuthContext = createContext<MyContext>({
-   currentUser: null
+   currentUser: null,
 });
 
 export const AuthContextProvider: FC<any> = ({ children }) => {
-   const [currentUser, setCurrentUser] = useState<any | null>(null);
+   // const [currentUser, setCurrentUser] = useState<any | null>(null);
+   const [currentUser] = useAuthState(auth);
+   const authContext = useMemo(() => {
+      return { currentUser };
+   }, [currentUser]);
 
-   useEffect(() => {
-      const unsubscribe = onAuthStateChanged(auth, (user) => {
-         setCurrentUser(user);
-      });
+   // useEffect(() => {
+   //    const unsubscribe = onAuthStateChanged(auth, (user) => {
+   //       setCurrentUser(user);
+   //    });
 
-      return () => {
-         unsubscribe();
-      };
-   }, []);
+   //    return () => {
+   //       unsubscribe();
+   //    };
+   // }, []);
 
    return (
-      <AuthContext.Provider value={{ currentUser: currentUser }}>
+      <AuthContext.Provider value={authContext}>
          {children}
       </AuthContext.Provider>
    );

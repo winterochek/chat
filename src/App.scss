@@ -1,10 +1,10 @@
 @mixin mobile {
-   @media screen and (max-width: 480px) {
+   @media screen and (max-width: 440px) {
       @content;
    }
 }
 @mixin tablet {
-   @media screen and (max-width: 768px) {
+   @media screen and (max-width: 840px) {
       @content;
    }
 }
@@ -74,6 +74,26 @@
          font-size: 12px;
          margin-top: 10px;
       }
+      img {
+         height: 24px;
+         width: 24px;
+         cursor: pointer;
+      }
+      div {
+         display: flex;
+         flex-direction: row;
+         gap: 10px;
+      }
+      @include tablet() {
+         width: 70%;
+      }
+      @include laptop() {
+         width: 40%;
+         max-width: 400px;
+      }
+      @include mobile {
+         width: 80%;
+      }
    }
 }
 
@@ -84,20 +104,60 @@
    align-items: center;
    justify-content: center;
    .container {
+      position: relative;
       border: 1px solid white;
       border-radius: 10px;
       overflow: hidden;
-      width: 65%;
-      height: 80%;
+      width: 75%;
+      height: 65%;
       display: flex;
       @include laptop {
-         width: 90%;
+         width: 75%;
+         height: 75%;
+      }
+      @include tablet {
+         width: 85%;
+         height: 85%;
+      }
+      @include mobile {
+         width: 95%;
+         height: 95%;
       }
       .sidebar {
          flex: 1;
          background-color: #3e3c61;
          height: 100%;
          position: relative;
+         max-width: 350px;
+         @include tablet {
+            transition: transform 0.3s ease-in-out;
+            transform: translateX(-100%);
+            &.active {
+               transform: translateX(0);
+               width: 35%;
+               position: absolute;
+               z-index: 5;
+               left: 0;
+               border-radius: 10px;
+               overflow: hidden;
+            }
+         }
+         @include mobile {
+            transition: transform 0.3s ease-in-out;
+            transform: translateX(-100%);
+            &.active {
+               transform: translateX(0);
+               width: 65%;
+               position: absolute;
+               z-index: 5;
+               left: 0;
+               border-radius: 10px;
+               overflow: hidden;
+            }
+         }
+         @include laptop{
+          // display: block;
+         }
          .navbar {
             display: flex;
             align-items: center;
@@ -204,6 +264,11 @@
          span {
             font-size: 22px;
          }
+         .open {
+            display: block;
+            cursor: pointer;
+         }
+
          .chatInfo {
             height: 50px;
             background-color: #5d5b8d;
